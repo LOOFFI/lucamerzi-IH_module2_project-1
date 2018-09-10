@@ -13,6 +13,8 @@ require("./config/passport")(passport)
 
 // LOAD ROUTES
 const auth = require("./routes/auth.js")
+const index = require("./routes/index.js")
+const admin = require("./routes/admin.js")
 
 // LOAD KEYS
 const keys = require("./config/keys.js")
@@ -28,10 +30,7 @@ mongoose.connect(keys.mongoURI)
 
 const app = express()
 
-app.get("/", (req, res, next) => {
-  //res.send("It works")
-  res.render("index.hbs")
-})
+
 
 app.use(cookieParser())
 app.use(session({
@@ -52,8 +51,9 @@ app.use((req, res, next) => {
 
 
 // USE ROUTES
-// app.use("/", )
+app.use("/", index)
 app.use("/auth", auth)
+app.use("/admin", admin)
 
 
 const port = process.env.PORT || 3000;

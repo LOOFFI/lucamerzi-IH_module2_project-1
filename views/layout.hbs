@@ -11,23 +11,32 @@
 </head>
 <body>
 <nav class="uk-navbar-container uk-navbar" >
-    <div class="uk-navbar-left">
-        <ul class="uk-navbar-nav">
-            <li>
-                <a href="#">Parent</a>
-                <div class="uk-navbar-dropdown">
-                    <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li class="uk-active"><a href="#">Active</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li><a href="#">Item</a></li>
-        </ul>
-    </div>
+	<div class="uk-navbar-left">
+		<ul class="uk-navbar-nav">
+			<li>
+				<a href="#">Parent</a>
+				<div class="uk-navbar-dropdown">
+					<ul class="uk-nav uk-navbar-dropdown-nav">
+						<li class="uk-active"><a href="#">Active</a></li>
+						<li><a href="#">Item</a></li>
+						<li><a href="#">Item</a></li>
+					</ul>
+				</div>
+			</li>
+			<li><a href="#">Item</a></li>
+		</ul>
+	</div>
 	<div class="uk-navbar-right">
-		<a class="uk-navbar-item uk-logo" href="#">Logo</a>
+		{{#if user}}
+			<div class="uk-width-auto">
+			<img class="uk-border-circle" width="40" height="40" src="{{user.image}}">
+			</div>
+			<p>Welcome {{user.firstName}} {{user.Lastname}}</p>
+			<a href="/auth/logout">Logout</a>
+		{{else}}
+		{{/if}}
+	<a class="uk-navbar-item uk-logo" href="#">Logo</a>
+            
 	</div>
 </nav>
 
