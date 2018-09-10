@@ -5,8 +5,9 @@ const session = require("express-session")
 const passport = require("passport")
 const hbs = require("hbs")
 
-// LOAD USER MODEL
+// LOAD MODELS
 require("./models/User.js")
+require("./models/Post.js")
 
 // PASSPORT CONFIG
 require("./config/passport")(passport)
