@@ -3,12 +3,12 @@ const Schema = mongoose.Schema
 
 // CREATE SCHEMA
 const postSchema = new Schema({
-	pAuthor: { type: Schema.Types.ObjectId, ref: "User", required: true },
 	pTitle: { type: String, required: true },
 	pBody: { type: String, required: true },
 	pImage: { type: String, required: true },
 	pAllowComments: { type: Boolean, required: true },
 	pIsPublished: { type: Boolean, required: true },
+	pAuthor: { type: Schema.Types.ObjectId, ref: "User", required: true },
 	pComments: [
 		{
 			cAuthor: {type: Schema.Types.ObjectId, ref: "User", required: true},

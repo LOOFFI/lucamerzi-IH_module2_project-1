@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser")
 const session = require("express-session")
 const passport = require("passport")
 const hbs = require("hbs")
+const bodyParser   = require('body-parser');
 
 // LOAD MODELS
 require("./models/User.js")
@@ -20,7 +21,6 @@ const admin = require("./routes/admin.js")
 // LOAD KEYS
 const keys = require("./config/keys.js")
 
-
 // MAP GLOBAL PROMISES
 mongoose.Promise = global.Promise
 // MONGOOSE CONNECT
@@ -31,8 +31,11 @@ mongoose.connect(keys.mongoURI)
 
 const app = express()
 
+// MIDDLEWARE BODY PARSER
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-
+// MIDDLEWARE COOKIE PARSER
 app.use(cookieParser())
 app.use(session({
   secret: "secret",
@@ -50,12 +53,10 @@ app.use((req, res, next) => {
   next()
 })
 
-
 // USE ROUTES
 app.use("/", index)
 app.use("/auth", auth)
 app.use("/admin", admin)
-
 
 const port = process.env.PORT || 3000;
 
