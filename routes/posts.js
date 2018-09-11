@@ -11,7 +11,8 @@ router.get("/", (req, res, next) => {
 	.populate("pAuthor")
 	.then(documentsArray => {
 		// console.log(documentsArray)
-		res.locals.posts = documentsArray
+		res.locals.posts = documentsArray;
+
 		res.render("index/posts.hbs")
 	})
 	.catch(err => console.log(err))
@@ -53,5 +54,35 @@ router.get("/:id", (req,res,next) => {
 		})
 		.catch(err => next(err));
 })
+
+// EDIT ONE POST
+router.get("/:id/edit", (req,res,next) => {
+	const {id} = req.params;
+	Post.findById(id)
+		.populate("pAuthor")
+		.then(postDoc => {
+			res.locals.postItem = postDoc;
+			res.render("index/edit-post.hbs");
+		})
+		.catch(err => next(err));
+})
+
+// EDITING UPDATING
+router.post("/:id/process-edit", (req,res,next) => {
+  const {id} = req.params;
+  const { pTitle, pBody, pImage, pAllowComments, pIsPublished }= req.body;
+
+  Post.findByIdAndUpdate(
+    id,
+    {$set: {pTitle, pBody, pImage, pAllowComments, pIsPublished} },
+    { runValidators: true })
+    .then(postDoc => {
+      res.redirect(`/posts/${id}`);
+    })
+    .catch(err => next(err));
+ 
+});
+
+
 
 module.exports = router;

@@ -1,0 +1,37 @@
+<form class="uk-form-stacked" action="/posts/{{postItem._id}}/process-edit" method="POST">
+
+		<div class="uk-margin">
+				<label class="uk-form-label" for="form-stacked-text">Title</label>
+				<div class="uk-form-controls">
+						<input name="pTitle" value="{{postItem.pTitle}}" class="uk-input" id="form-stacked-text" type="text" placeholder="Your posts title...">
+				</div>
+		</div>
+
+		<div class="uk-margin">
+				<div class="uk-form-label">Post Body</div>
+				<div class="uk-form-controls">
+					<textarea name="pBody" value="" class="uk-textarea">{{postItem.pBody}}</textarea>
+				</div>
+		</div>
+
+		<div class="uk-margin">
+				<label class="uk-form-label" for="form-stacked-text">Image URL</label>
+				<div class="uk-form-controls">
+						<input name="pImage" value="{{postItem.pImage}}" class="uk-input" id="form-stacked-text" type="text" placeholder="Your URL...">
+				</div>
+		</div>
+
+		<div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+			<label><input class="uk-radio" type="radio" name="pAllowComments" value="true" checked> Allow comments</label>
+			<label><input class="uk-radio" type="radio" name="pAllowComments" value="false" > disable comments</label>
+		</div>
+
+		<div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+			<label><input class="uk-radio" type="radio" name="pIsPublished" value="true" checked>Published</label>
+			<label><input class="uk-radio" type="radio" name="pIsPublished" value="false">Unpublished</label>
+		</div>
+
+<button type="submit" href="" class="uk-button uk-button-primary"></a> Submit </button>
+	
+
+</form>
