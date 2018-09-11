@@ -1,4 +1,5 @@
 const express = require("express")
+const Post = require("../models/Post.js")
 const router = express.Router()
 
 // WELCOME PAGE (NOT LOGGED)
@@ -20,7 +21,25 @@ router.get("/posts", (req, res, next) => {
 
 // NEW POST
 router.get("/posts/new", (req, res, next) => {
-  res.render("admin/new-post.hbs")
+  if (req.user){
+    req.user.isAdmin ? res.render("admin/new-post.hbs") : res.redirect("/")
+  } else {
+    res.redirect("/")
+  }
+})
+
+router.post("/posts/new", (req, res, next) => {
+  // DESTRUCTURE REQUEST
+  const { pTitle, pBody, pImage, pAllowComments, pIsPublished } = req.body
+  
+  const pAuthor = req.user;
+
+  Post.create({pTitle, pBody, pImage, pAllowComments, pIsPublished, pAuthor })
+  .then(newDoc => {
+    res.redirect("/posts")
+  })
+  .catch(err => console.log(err))
+
 })
 
 module.exports = router;
