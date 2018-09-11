@@ -1,8 +1,10 @@
-<a href="/posts/new">Write a new post</a>
+
+
 <h1>These are your posts, {{ user.firstName }}</h1>
 <ul class="uk-iconnav uk-iconnav-vertical">
-	<li><a href="#" uk-icon="icon: plus"></a></li>
-	<li><a href="#" uk-icon="icon: file-edit"></a></li>
-	<li><a href="#" uk-icon="icon: copy"></a></li>
-	<li><a href="#" uk-icon="icon: trash"></a></li>
+
+	<li><a href="/posts" uk-icon="icon: copy">View all posts</a></li>
+	<li><a  uk-icon="icon: plus" href="/posts/new">Write a new post </a></li>
+	<li><a href="#" uk-icon="icon: file-edit">Edit your post </a></li>
+	<li><a href="#" uk-icon="icon: trash">Delete one post</a></li>
 </ul>
