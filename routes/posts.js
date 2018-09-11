@@ -36,13 +36,8 @@ router.post("/new", (req, res, next) => {
 	const posthead = pBody.slice(0, 50)
 	const postbody = pBody.slice(50)
 	const pAuthor = req.user;
-<<<<<<< HEAD
 
 	Post.create({pTitle, postbody, posthead, pImage, pAllowComments, pIsPublished, pAuthor })
-=======
-	
-	Post.create({pTitle, pBody, pImage, pAllowComments, pIsPublished, pAuthor })
->>>>>>> b5985a0ae3e83b9849739e9856fedf238cf84beb
 	.then(newDoc => {
 		res.redirect("/posts")
 	})
@@ -52,10 +47,22 @@ router.post("/new", (req, res, next) => {
 
 // SHOW ONE POST
 router.get("/:id", (req,res,next) => {
+	let userIsLogged = req.user
+	let userIsAdmin
+	if (userIsLogged){
+		userIsAdmin = req.user.isAdmin
+	}
+	res.locals.userIsLogged = userIsLogged;
+	res.locals.userIsAdmin = userIsAdmin;
+	
+	
+	
 	const {id} = req.params;
 	Post.findById(id)
 		.populate("pAuthor")
 		.then(postDoc => {
+
+
 			res.locals.postItem = postDoc;
 			res.render("index/show-post.hbs");
 		})

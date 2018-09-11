@@ -1,18 +1,81 @@
+<div class="uk-container uk-container-small">
+{{!-- EXTERNAL WRAPPING DIV --}}
+
+{{#if userIsLogged}}
+user is logged
+{{else}}
+user is not logged
+{{/if}}
+
+{{#if userIsAdmin}}
+user is admin
+{{else}}
+user is not admin
+{{/if}}
+
 <article class="uk-article">
-
-    <h1 class="uk-article-title"><a class="uk-link-reset" href="">{{postItem.pTitle}}</a></h1>
-
-    <p class="uk-article-meta">Written by <a href="#">{{postItem.pAuthor.firstName}} {{postItem.pAuthor.lastName}}</a> on {{postItem.createdAt}} <a href="#">Blog</a></p>
-
-    <p class="uk-text-lead">PHRASE D ACCROCHE ???</p>
-
-    <p>{{postItem.pBody}}</p>
-
-    <div class="uk-grid-small uk-child-width-auto" uk-grid>
-        
-        <div>
-            <a class="uk-button uk-button-text" href="#">5 Comments</a>
-        </div>
-    </div>
-
+	<h1 class="uk-article-title"><a class="uk-link-reset" href="">{{postItem.pTitle}}</a></h1>
+	<p class="uk-article-meta">Written by <a href="#">{{postItem.pAuthor.firstName}} {{postItem.pAuthor.lastName}}</a> on {{postItem.createdAt}} <a href="#">Blog</a></p>
+	<p class="uk-text-lead">This Is Your Post Head</p>
+	<p>{{{postItem.posthead}}}{{{postItem.postbody}}}</p>
 </article>
+
+<p uk-margin>
+	<button class="uk-button uk-button-primary">Edit</button>
+	<button class="uk-button uk-button-danger">Delete</button>
+</p>
+
+{{!-- HOW MANY COMMENTS --}}
+<div class="uk-grid-small uk-child-width-auto uk-margin" uk-grid>
+	<div>
+		<a class="uk-button uk-button-text" href="#comments-container">{{postItem.pComments.length}} comments</a>
+	</div>
+</div>
+
+{{!-- {{#if postItem.pComments}} --}}
+<div class="uk-container uk-container-small uk-margin" id="comments-container">
+	<article class="uk-comment">
+	<header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+		<div class="uk-width-auto">
+			<img class="uk-comment-avatar" 
+			{{!-- src="images/avatar.jpg"  --}}
+			width="80" height="80" alt="">
+		</div>
+		<div class="uk-width-expand">
+			<h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">Comment Author</a></h4>
+			<ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+					<li><a href="#">12 days ago</a></li>
+			</ul>
+		</div>
+	</header>
+	<div class="uk-comment-body">
+			<p>This is my comment.</p>
+	</div>
+	</article>
+</div>
+{{!-- {{else}}
+{{/if}} --}}
+
+
+
+
+
+
+{{!-- COMMENTS SECTION --}}
+
+<form>
+	<fieldset class="uk-fieldset">
+			<legend class="uk-legend">Add A Comment</legend>
+			<div class="uk-margin">
+					<textarea class="uk-textarea" rows="5" placeholder="Write Your Comment Here..."></textarea>
+			</div>
+	</fieldset>
+	<p uk-margin>
+		<button class="uk-button uk-button-secondary">Secondary</button>
+	</p>
+</form>
+
+{{!-- EXTERNAL WRAPPING DIV --}}
+</div>
+
+

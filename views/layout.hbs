@@ -14,12 +14,10 @@
 	<div class="uk-navbar-left">
 		<ul class="uk-navbar-nav">
 			<li>
-				<a href="#">Parent</a>
+				<a href="#">View</a>
 				<div class="uk-navbar-dropdown">
 					<ul class="uk-nav uk-navbar-dropdown-nav">
-						<li class="uk-active"><a href="#">Active</a></li>
-						<li><a href="#">Item</a></li>
-						<li><a href="#">Item</a></li>
+						<li><a href="/posts">View All Public Posts</a></li>
 					</ul>
 				</div>
 			</li>
@@ -31,7 +29,7 @@
 		{{#if user}}
 			<div class="uk-width-auto"><img class="uk-border-circle" width="40" height="40" src="{{user.image}}"></div>
 			<ul class="uk-navbar-nav">
-				<li> <a href="">  Welcome, {{user.firstName}}</a></li>
+				<li> <a href=""> Logged in as {{user.firstName}}</a></li>
 				<li><a href="/auth/logout">Logout</a></li>
 			</ul>
 		{{else}}
@@ -46,5 +44,17 @@
 	<!-- UIkit JS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.14/js/uikit.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.14/js/uikit-icons.min.js"></script>
+	{{!-- CDN CKEDITOR--}}
+	<script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
+			<script>
+			ClassicEditor
+				.create( document.querySelector( '#editor' ) )
+				.then( editor => {
+					console.log( editor );
+				} )
+				.catch( error => {
+					console.error( error );
+				} );
+		</script>
 </body>
 </html>
