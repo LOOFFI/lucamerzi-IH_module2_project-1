@@ -3,9 +3,10 @@ const Post = require("../models/Post.js")
 // const User = require("../models/User.js")
 const router = express.Router()
 
+
 // POSTS
 router.get("/", (req, res, next) => {
-
+	
 	Post.find()
 	.populate("pAuthor")
 	.then(documentsArray => {
@@ -14,8 +15,9 @@ router.get("/", (req, res, next) => {
 		res.render("index/posts.hbs")
 	})
 	.catch(err => console.log(err))
-
+	
 })
+
 
 // SHOW NEW POST FORM
 router.get("/new", (req, res, next) => {
@@ -31,13 +33,25 @@ router.post("/new", (req, res, next) => {
 	const { pTitle, pBody, pImage, pAllowComments, pIsPublished } = req.body
 	
 	const pAuthor = req.user;
-
+	
 	Post.create({pTitle, pBody, pImage, pAllowComments, pIsPublished, pAuthor })
 	.then(newDoc => {
 		res.redirect("/posts")
 	})
 	.catch(err => console.log(err))
+	
+})
 
+// SHOW ONE POST
+router.get("/:id", (req,res,next) => {
+	const {id} = req.params;
+	Post.findById(id)
+		.populate("pAuthor")
+		.then(postDoc => {
+			res.locals.postItem = postDoc;
+			res.render("index/show-post.hbs");
+		})
+		.catch(err => next(err));
 })
 
 module.exports = router;
