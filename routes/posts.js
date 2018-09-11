@@ -1,7 +1,6 @@
-const express = require("express")
-const Post = require("../models/Post.js")
-// const User = require("../models/User.js")
-const router = express.Router()
+const express = require("express");
+const Post = require("../models/Post.js");
+const router = express.Router();
 
 
 // POSTS
@@ -10,9 +9,11 @@ router.get("/", (req, res, next) => {
 	Post.find()
 	.populate("pAuthor")
 	.then(documentsArray => {
-		// console.log(documentsArray)
-		res.locals.posts = documentsArray;
-
+		// documentsArray.map(el => {
+		// 	console.log(el.pBody)
+		// })
+		console.log(documentsArray)
+		res.locals.posts = documentsArray
 		res.render("index/posts.hbs")
 	})
 	.catch(err => console.log(err))
@@ -32,10 +33,11 @@ router.get("/new", (req, res, next) => {
 router.post("/new", (req, res, next) => {
 	// DESTRUCTURE REQUEST
 	const { pTitle, pBody, pImage, pAllowComments, pIsPublished } = req.body
-	
+	const posthead = pBody.slice(0, 50)
+	const postbody = pBody.slice(50)
 	const pAuthor = req.user;
-	
-	Post.create({pTitle, pBody, pImage, pAllowComments, pIsPublished, pAuthor })
+
+	Post.create({pTitle, postbody, posthead, pImage, pAllowComments, pIsPublished, pAuthor })
 	.then(newDoc => {
 		res.redirect("/posts")
 	})
@@ -45,10 +47,22 @@ router.post("/new", (req, res, next) => {
 
 // SHOW ONE POST
 router.get("/:id", (req,res,next) => {
+	let userIsLogged = req.user
+	let userIsAdmin
+	if (userIsLogged){
+		userIsAdmin = req.user.isAdmin
+	}
+	res.locals.userIsLogged = userIsLogged;
+	res.locals.userIsAdmin = userIsAdmin;
+	
+	
+	
 	const {id} = req.params;
 	Post.findById(id)
 		.populate("pAuthor")
 		.then(postDoc => {
+
+
 			res.locals.postItem = postDoc;
 			res.render("index/show-post.hbs");
 		})
@@ -83,6 +97,15 @@ router.post("/:id/process-edit", (req,res,next) => {
  
 });
 
+// DELETING
+router.get("/:id/delete", (req,res,next) => {
+  const { id } = req.params;
 
+  Post.findByIdAndRemove(id)
+    .then(postDoc => {
+      res.redirect("/posts");
+    })
+    .catch(err => next(err));
+});
 
 module.exports = router;
