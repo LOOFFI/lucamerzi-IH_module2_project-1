@@ -1,7 +1,6 @@
-const express = require("express")
-const Post = require("../models/Post.js")
-// const User = require("../models/User.js")
-const router = express.Router()
+const express = require("express");
+const Post = require("../models/Post.js");
+const router = express.Router();
 
 // POSTS
 router.get("/", (req, res, next) => {
@@ -9,7 +8,10 @@ router.get("/", (req, res, next) => {
 	Post.find()
 	.populate("pAuthor")
 	.then(documentsArray => {
-		// console.log(documentsArray)
+		// documentsArray.map(el => {
+		// 	console.log(el.pBody)
+		// })
+		console.log(documentsArray)
 		res.locals.posts = documentsArray
 		res.render("index/posts.hbs")
 	})
@@ -29,10 +31,11 @@ router.get("/new", (req, res, next) => {
 router.post("/new", (req, res, next) => {
 	// DESTRUCTURE REQUEST
 	const { pTitle, pBody, pImage, pAllowComments, pIsPublished } = req.body
-	
+	const posthead = pBody.slice(0, 50)
+	const postbody = pBody.slice(50)
 	const pAuthor = req.user;
 
-	Post.create({pTitle, pBody, pImage, pAllowComments, pIsPublished, pAuthor })
+	Post.create({pTitle, postbody, posthead, pImage, pAllowComments, pIsPublished, pAuthor })
 	.then(newDoc => {
 		res.redirect("/posts")
 	})

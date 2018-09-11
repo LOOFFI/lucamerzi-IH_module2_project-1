@@ -3,8 +3,9 @@ const mongoose = require("mongoose")
 const cookieParser = require("cookie-parser")
 const session = require("express-session")
 const passport = require("passport")
-const hbs = require("hbs")
+// const hbs = require('hbs');
 const bodyParser   = require('body-parser');
+const app = express()
 
 // LOAD MODELS
 require("./models/User.js")
@@ -27,9 +28,6 @@ mongoose.Promise = global.Promise
 mongoose.connect(keys.mongoURI)
   .then( () => console.log("MongoDB connected") )
   .catch(err => console.log(err))
-
-
-const app = express()
 
 // MIDDLEWARE BODY PARSER
 app.use(bodyParser.json());
