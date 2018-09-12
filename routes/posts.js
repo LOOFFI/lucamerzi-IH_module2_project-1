@@ -6,7 +6,9 @@ const router = express.Router();
 // POSTS
 router.get("/", (req, res, next) => {
 	
+	//Post.find()
 	Post.find()
+	//.sort(['createdAt', 1])
 	.populate("pAuthor")
 	.then(documentsArray => {
 		// documentsArray.map(el => {

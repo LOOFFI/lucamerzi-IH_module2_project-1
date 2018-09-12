@@ -15,40 +15,40 @@
 		<ul class="uk-navbar-nav">
 			<li><a href="/posts" uk-icon="icon: copy"></a></li>
 			<li><a  uk-icon="icon: plus" href="/posts/new"></a></li>
+			<li><a  uk-icon="icon: github" href="#"></a></li>
+			<li><a  uk-icon="icon: linkedin" href="#"></a></li>
+			<li><a  uk-icon="icon: whatsapp" href="#"></a></li>
 			<li>
-				<a href="#">Dropdown</a>
+				<a href="#">More...</a>
 				<div class="uk-navbar-dropdown">
 					<ul class="uk-nav uk-navbar-dropdown-nav">
-						<li><a href="/posts">View All Public Posts</a></li>
+						<li><a href="/posts">About This Project</a></li>
 					</ul>
 				</div>
 			</li>
-			{{!-- <li><a href="#" uk-icon="icon: file-edit">Edit your post </a></li> --}}
-			{{!-- <li><a href="#" uk-icon="icon: trash">Delete one post</a></li> --}}
 		</ul>
 	</div>
-	<a class="uk-navbar-item uk-center uk-logo" href="/">App</a>
+	<a class="uk-navbar-item uk-navbar-center uk-logo" href="/"><span uk-icon="code" ></span></a>
 	<div class="uk-navbar-right">
 		{{#if user}}
 			<div class="uk-width-auto"><img class="uk-border-circle" width="40" height="40" src="{{user.image}}"></div>
 			<ul class="uk-navbar-nav">
-				<li> <a href=""> Logged in as {{user.firstName}}</a></li>
+				<li> <a href=""> Hi, {{user.firstName}}</a></li>
 				<li><a href="/auth/logout">Logout</a></li>
 			</ul>
 		{{else}}
 			{{!-- <ul class="uk-navbar-nav">
-				<li> <a href="/auth/google">Log in</a></li>
 
+				<li> <a href="/auth/google">Log in</a></li>
 			</ul> --}}
 				<a href="/auth/google" class="uk-icon-button uk-margin-small-right" uk-icon="google"></a>
-			{{!-- <a href="" class="uk-icon-button " uk-icon="twitter"></a>
-			<li><a href="" class="uk-icon-button  uk-margin-small-right" uk-icon="facebook"></a></li> --}}
+
 		{{/if}}
 	</div>
 </nav>
 
 
-<div class="uk-container">
+<div class="uk-container uk-container-xsmall uk-margin">
 	{{{body}}}
 </div>
 	<!-- UIkit JS -->
