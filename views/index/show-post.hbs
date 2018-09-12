@@ -6,22 +6,6 @@
 
 
 
-{{!------------------------------------------------------------------}}
-{{!-- ADMIN/ NOT ADMIN --}}
-{{!------------------------------------------------------------------}}
-{{#if userIsLogged}}
-You are logged as {{user.firstName}} ||
-{{else}}
-You are not logged ||
-{{/if}}
-
-{{#if userIsAdmin}}
-You are admin
-{{else}}
-You are not admin
-{{/if}}
-
-
 
 {{!------------------------------------------------------------------}}
 {{!-- POST SECTION --}}
@@ -39,13 +23,11 @@ You are not admin
 {{!-- BUTTONS DELETE / UPDATE POST --}}
 {{!------------------------------------------------------------------}}
 {{#if userIsAdmin}}
-user is admin
 <p uk-margin>
 	<a href="/posts/{{postItem._id}}/edit" class="uk-button uk-button-primary">Edit</a>
 	<a href="/posts/{{postItem._id}}/delete" class="uk-button uk-button-danger">Delete</a>
 </p>
 {{else}}
-user is not admin
 {{/if}}
 
 
@@ -74,13 +56,7 @@ user is not admin
 			{{/superif}} --}}
 
 
-		<article class="uk-comment uk-comment-primary">
-		{{#if ../user}}
-			i am here
-				{{{editIcon this.cAuthor.id ../user.id this._id true }}}
-		{{else}}
-			i am not here
-		{{/if}}
+		<article class="uk-comment uk-comment-primary uk-margin">
 		<header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
 				<div class="uk-width-auto">
 						<img class="uk-comment-avatar" src="{{ this.cAuthor.image }}" width="80" height="80" alt="">
@@ -95,6 +71,12 @@ user is not admin
 		<div class="uk-comment-body">
 				<p>{{this.cBody}}</p>
 		</div>
+		{{#if ../user}}
+			You are logged
+				{{{editIcon this.cAuthor.id ../user.id this._id }}}
+		{{else}}
+			<small>You are not logged</small>
+		{{/if}}
 		
 
 		
@@ -124,10 +106,20 @@ user is logged
 {{else}}
 {{/if}}
 
+{{!------------------------------------------------------------------}}
+{{!-- ADMIN/ NOT ADMIN AT THE BOTTOM OF THE PAGE--}}
+{{!------------------------------------------------------------------}}
+{{#if userIsLogged}}
+	<small> You are logged as {{user.firstName}} || </small>
+{{else}}
+	<small> You are not logged || </small>
+{{/if}}
 
-
-
-
+{{#if userIsAdmin}}
+	<small>You are admin</small>
+{{else}}
+	<small>You are not admin</small>
+{{/if}}
 
 {{!-- EXTERNAL WRAPPING DIV --}}
 </div>

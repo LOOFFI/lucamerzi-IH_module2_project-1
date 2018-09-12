@@ -47,16 +47,14 @@ app.set('view engine', "hbs");
 // 	}
 	 
 // })
-hbs.registerHelper("editIcon", function(storyUser, loggedUser, storyId, floating = true){
+hbs.registerHelper("editIcon", function(storyUser, loggedUser, storyId){
 	if(storyUser == loggedUser){
-		if(floating){
-			return `<a href="/stories/edit/${storyId}" class="btn-floating halfway-fab red"><i class="fa fa-pencil"></i>hithereee</a><a href="/posts/comment-edit/${storyId}" uk-icon="icon: file-edit"> </a>
-			<a href="/posts/comment-delete/${storyId}" uk-icon="icon: trash"></a>`;
+			return `<p uk-margin>
+			<a class="uk-button uk-button-primary" href="/posts/comment-edit/${storyId}" uk-icon="icon: file-edit"></a>
+			<a  class="uk-button uk-button-danger" href="/posts/comment-delete/${storyId}" uk-icon="icon: trash"></a>
+		</p>`;
 		} else {
-			return `<a href="/stories/edit/${storyId}"><i class="fa fa-pencil"></i></a>`;
-		}
-	} else {
-		return 'TAMER';
+		return 'You cannot edit or remove this';
 	}
 })
 
