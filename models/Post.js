@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 // CREATE SCHEMA
 const postSchema = new Schema({
 	pTitle: { type: String, required: true },
+	pDescription: { type: String },
 	pBody: { type: String, required: true },
 	pImage: { type: String, required: true },
 	pAllowComments: { type: Boolean, required: true },

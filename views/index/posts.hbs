@@ -17,9 +17,11 @@
 			</div>
 		</div>
 	</div>
+	{{#if this.pDescription}}
 	<div class="uk-card-body">
-		<p>{{this.pBody}}</p>
+		<p>{{this.pDescription}}</p>
 	</div>
+	{{/if}}
 	<div class="uk-card-footer">
 		<a href="/posts/{{this._id}}" class="uk-button uk-button-text">Read more</a>
 	</div>
