@@ -13,7 +13,6 @@ const postSchema = new Schema({
 	pComments: [
 		{
 			cAuthor: {type: Schema.Types.ObjectId, ref: "User", required: true},
-			cTitle: {type: String, required: true},
 			cBody: {type: String, required: true},
 		}, {
 			timestamps: true

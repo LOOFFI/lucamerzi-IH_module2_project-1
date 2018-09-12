@@ -12,7 +12,7 @@ router.get("/", (req, res, next) => {
 		// documentsArray.map(el => {
 		// 	console.log(el.pBody)
 		// })
-		console.log(documentsArray)
+		//console.log(documentsArray)
 		res.locals.posts = documentsArray
 		res.render("index/posts.hbs")
 	})
@@ -29,6 +29,7 @@ router.get("/new", (req, res, next) => {
 		res.redirect("/")
 	}
 })
+
 // PROCESS NEW POST
 router.post("/new", (req, res, next) => {
 	// DESTRUCTURE REQUEST
@@ -53,14 +54,14 @@ router.get("/:id", (req,res,next) => {
 	res.locals.userIsLogged = userIsLogged;
 	res.locals.userIsAdmin = userIsAdmin;
 	
-	
+
 	
 	const {id} = req.params;
 	Post.findById(id)
 		.populate("pAuthor")
+		.populate("pComments.cAuthor")
 		.then(postDoc => {
-
-
+			//res.send(postDoc)
 			res.locals.postItem = postDoc;
 			res.render("index/show-post.hbs");
 		})
@@ -81,29 +82,57 @@ router.get("/:id/edit", (req,res,next) => {
 
 // EDITING UPDATING
 router.post("/:id/process-edit", (req,res,next) => {
-  const {id} = req.params;
-  const { pTitle, pBody, pImage, pAllowComments, pIsPublished }= req.body;
+	const {id} = req.params;
+	const { pTitle, pBody, pImage, pAllowComments, pIsPublished }= req.body;
 
-  Post.findByIdAndUpdate(
-    id,
-    {$set: {pTitle, pBody, pImage, pAllowComments, pIsPublished} },
-    { runValidators: true })
-    .then(postDoc => {
-      res.redirect(`/posts/${id}`);
-    })
-    .catch(err => next(err));
+	Post.findByIdAndUpdate(
+		id,
+		{$set: {pTitle, pBody, pImage, pAllowComments, pIsPublished} },
+		{ runValidators: true })
+		.then(postDoc => {
+			res.redirect(`/posts/${id}`);
+		})
+		.catch(err => next(err));
  
 });
 
 // DELETING
 router.get("/:id/delete", (req,res,next) => {
-  const { id } = req.params;
+	const { id } = req.params;
 
-  Post.findByIdAndRemove(id)
-    .then(postDoc => {
-      res.redirect("/posts");
-    })
-    .catch(err => next(err));
+	Post.findByIdAndRemove(id)
+		.then(postDoc => {
+			res.redirect("/posts");
+		})
+		.catch(err => next(err));
 });
+
+// PROCESS COMMENT
+router.post("/:postId/process-comment", (req, res, next) => {
+	
+	console.log(req.user)
+
+
+	// COMMENT OBJECT FIELDS
+	const comment = {
+		cAuthor : req.user,
+		cBody : req.body.commentBody,
+	}
+
+	// POST ID
+	const {postId} = req.params
+	
+	Post.findById( {_id: postId} )
+	.then(foundDoc => {
+		foundDoc.pComments.unshift(comment)
+		foundDoc.save()
+			.then(foundDocWithComment => {
+				console.log(foundDocWithComment.pComments)
+				res.redirect(`/posts/${postId}`)
+			})
+			.catch(err => console.log(err))
+	})
+	.catch(err => console.log(err))
+})
 
 module.exports = router;
