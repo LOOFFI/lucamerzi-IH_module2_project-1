@@ -13,15 +13,18 @@
 <nav class="uk-navbar-container uk-margin-left uk-margin-right uk-margin-bottom " uk-navbar >
 	<div class="uk-navbar-left">
 		<ul class="uk-navbar-nav">
+			<li><a href="/posts" uk-icon="icon: copy"></a></li>
+			<li><a  uk-icon="icon: plus" href="/posts/new"></a></li>
 			<li>
-				<a href="#">View</a>
+				<a href="#">Dropdown</a>
 				<div class="uk-navbar-dropdown">
 					<ul class="uk-nav uk-navbar-dropdown-nav">
 						<li><a href="/posts">View All Public Posts</a></li>
 					</ul>
 				</div>
 			</li>
-			<li><a href="#">Item</a></li>
+			{{!-- <li><a href="#" uk-icon="icon: file-edit">Edit your post </a></li> --}}
+			{{!-- <li><a href="#" uk-icon="icon: trash">Delete one post</a></li> --}}
 		</ul>
 	</div>
 	<a class="uk-navbar-item uk-center uk-logo" href="/">App</a>
@@ -33,9 +36,13 @@
 				<li><a href="/auth/logout">Logout</a></li>
 			</ul>
 		{{else}}
-			<ul class="uk-navbar-nav">
+			{{!-- <ul class="uk-navbar-nav">
 				<li> <a href="/auth/google">Log in</a></li>
-			</ul>
+
+			</ul> --}}
+				<a href="/auth/google" class="uk-icon-button uk-margin-small-right" uk-icon="google"></a>
+			{{!-- <a href="" class="uk-icon-button " uk-icon="twitter"></a>
+			<li><a href="" class="uk-icon-button  uk-margin-small-right" uk-icon="facebook"></a></li> --}}
 		{{/if}}
 	</div>
 </nav>

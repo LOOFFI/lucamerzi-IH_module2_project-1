@@ -25,11 +25,42 @@ const keys = require("./config/keys.js")
 mongoose.Promise = global.Promise
 // MONGOOSE CONNECT
 mongoose.connect(keys.mongoURI)
-  .then( () => console.log("MongoDB connected") )
-  .catch(err => console.log(err))
+	.then( () => console.log("MongoDB connected") )
+	.catch(err => console.log(err))
 
 
 const app = express()
+
+// HBS MIDDLEWARE
+// hbs.registerPartials(path.join(__dirname, "views", "partials"));
+// app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', "hbs");
+// app.use(express.static(path.join(__dirname, 'public')));
+// app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+
+// hbs.registerHelper("superif", function(a, b, options){
+//  if (a.toString() === b.toString()) {
+// 	 options.fn(this)
+//  }
+//  else {
+// 	 options.inverse(this)
+// 	}
+	 
+// })
+hbs.registerHelper("editIcon", function(storyUser, loggedUser, storyId, floating = true){
+	if(storyUser == loggedUser){
+		if(floating){
+			return `<a href="/stories/edit/${storyId}" class="btn-floating halfway-fab red"><i class="fa fa-pencil"></i>hithereee</a><a href="/posts/comment-edit/${storyId}" uk-icon="icon: file-edit"> </a>
+			<a href="/posts/comment-delete/${storyId}" uk-icon="icon: trash"></a>`;
+		} else {
+			return `<a href="/stories/edit/${storyId}"><i class="fa fa-pencil"></i></a>`;
+		}
+	} else {
+		return 'TAMER';
+	}
+})
+
+
 
 // MIDDLEWARE BODY PARSER
 app.use(bodyParser.json());
@@ -38,9 +69,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // MIDDLEWARE COOKIE PARSER
 app.use(cookieParser())
 app.use(session({
-  secret: "secret",
-  resave: false,
-  saveUninitialized: false,
+	secret: "secret",
+	resave: false,
+	saveUninitialized: false,
 }))
 
 // PASSPORT MIDDLEWARE
@@ -49,8 +80,8 @@ app.use(passport.session())
 
 // SET GLOBAL VARS
 app.use((req, res, next) => {
-  res.locals.user = req.user || null
-  next()
+	res.locals.user = req.user || null
+	next()
 })
 
 // USE ROUTES
@@ -61,5 +92,5 @@ app.use("/posts", posts)
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-  console.log(`Seervers started on ${port}`)
+	console.log(`Seervers started on ${port}`)
 });

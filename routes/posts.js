@@ -46,6 +46,7 @@ router.post("/new", (req, res, next) => {
 
 // SHOW ONE POST
 router.get("/:id", (req,res,next) => {
+	// IS ADMIN/ LOGGED
 	let userIsLogged = req.user
 	let userIsAdmin
 	if (userIsLogged){
@@ -54,15 +55,26 @@ router.get("/:id", (req,res,next) => {
 	res.locals.userIsLogged = userIsLogged;
 	res.locals.userIsAdmin = userIsAdmin;
 	
-
-	
 	const {id} = req.params;
 	Post.findById(id)
 		.populate("pAuthor")
 		.populate("pComments.cAuthor")
 		.then(postDoc => {
 			//res.send(postDoc)
+			// res.locals.isCommentAuthor = req.user._id === 
+			// postDoc.pComments.forEach((el, i) => {
+			// 	// res.locals.isCommentAuthor = (el.cAuthor._id.toString() === req.user._id.toString())
+			// 	// console.log(el.cAuthor._id.toString() === req.user._id.toString())
+			// 	// console.log(i)
+			// 	el.isCommentAuthor = (el.cAuthor._id.toString() === req.user._id.toString())
+			// 	console.log(req.user)
+			// })
+			// res.send(postDoc.pComments)
 			res.locals.postItem = postDoc;
+			if (req.user){
+				res.locals.user = req.user;
+			}
+			
 			res.render("index/show-post.hbs");
 		})
 		.catch(err => next(err));
