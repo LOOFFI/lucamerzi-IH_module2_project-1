@@ -65,26 +65,40 @@ user is not admin
 {{!-- ADMIN/ NOT ADMIN --}}
 {{!------------------------------------------------------------------}}
 {{#if postItem.pComments}}
-		<div class="uk-container uk-container-small uk-margin" id="comments-container" style="border: 1px solid lightgrey">
+		<div class="uk-container uk-container-small uk-margin" id="comments-container">
 		{{#each postItem.pComments}}
-			<article class="uk-comment">
+		<article class="uk-comment uk-comment-primary">
+		<header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+				<div class="uk-width-auto">
+						<img class="uk-comment-avatar" src="{{ this.cAuthor.image }}" width="80" height="80" alt="">
+				</div>
+				<div class="uk-width-expand">
+						<h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">{{ this.cAuthor.firstName }}</a></h4>
+						<ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+								<li><a href="#">{{ this.cDate }}</a></li>
+						</ul>
+				</div>
+		</header>
+		<div class="uk-comment-body">
+				<p>{{this.cBody}}</p>
+		</div>
+		</article>
+			{{!-- <article class="uk-comment" style="border: 1px solid lightgrey" >
 			<header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
 				<div class="uk-width-auto">
-					<img class="uk-comment-avatar" 
-					{{!-- src="images/avatar.jpg"  --}}
-					width="80" height="80" alt="">
+					<img class="uk-comment-avatar" src="{{ this.cAuthor.image }}" width="80" height="80" alt="">
 				</div>
 				<div class="uk-width-expand">
 					<h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#"> {{ this.cAuthor.firstName }}</a></h4>
 					<ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-							<li><a href="#">12 days ago</a></li>
+							<li><a href="#">{{ this.cDate }}</a></li>
 					</ul>
 				</div>
 			</header>
 			<div class="uk-comment-body">
 					<p>{{this.cBody}}</p>
 			</div>
-			</article>
+			</article> --}}
 		{{/each}}
 	</div>
 {{else}}

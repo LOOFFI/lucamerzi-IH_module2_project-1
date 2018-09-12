@@ -14,8 +14,7 @@ const postSchema = new Schema({
 		{
 			cAuthor: {type: Schema.Types.ObjectId, ref: "User", required: true},
 			cBody: {type: String, required: true},
-		}, {
-			timestamps: true
+			cDate: {type: Date, default: Date.now },
 		}
 	]
 }, {
