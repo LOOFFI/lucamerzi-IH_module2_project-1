@@ -32,12 +32,10 @@ router.get("/new", (req, res, next) => {
 // PROCESS NEW POST
 router.post("/new", (req, res, next) => {
 	// DESTRUCTURE REQUEST
-	const { pTitle, pBody, pImage, pAllowComments, pIsPublished } = req.body
-	const posthead = pBody.slice(0, 50)
-	const postbody = pBody.slice(50)
+	const { pTitle, pDescription ,pBody, pImage, pAllowComments, pIsPublished } = req.body
 	const pAuthor = req.user;
 
-	Post.create({pTitle, postbody, posthead, pImage, pAllowComments, pIsPublished, pAuthor })
+	Post.create({pTitle, pDescription, pBody, pImage, pAllowComments, pIsPublished, pAuthor })
 	.then(newDoc => {
 		res.redirect("/posts")
 	})
