@@ -109,17 +109,24 @@ user is logged
 {{!------------------------------------------------------------------}}
 {{!-- ADMIN/ NOT ADMIN AT THE BOTTOM OF THE PAGE--}}
 {{!------------------------------------------------------------------}}
-{{#if userIsLogged}}
-	<small> You are logged as {{user.firstName}} || </small>
-{{else}}
-	<small> You are not logged || </small>
-{{/if}}
 
-{{#if userIsAdmin}}
-	<small>You are admin</small>
-{{else}}
-	<small>You are not admin</small>
-{{/if}}
+<div class="uk-comment-body uk-margin">
+	<p>
+		{{#if userIsLogged}}
+		<small> You are logged as {{user.firstName}} || </small>
+		{{else}}
+		<small> You are not logged || </small>
+		{{/if}}
+
+		{{#if userIsAdmin}}
+			<small>You are admin</small>
+		{{else}}
+			<small>You are not admin</small>
+		{{/if}}
+	</p>
+</div>
+
+
 
 {{!-- EXTERNAL WRAPPING DIV --}}
 </div>
