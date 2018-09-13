@@ -45,8 +45,8 @@ app.use(express.static(path.join(__dirname, "public")))
 //  else {
 // 	 options.inverse(this)
 // 	}
-	 
 // })
+
 hbs.registerHelper("editIcon", function(storyUser, loggedUser, storyId, commentId){
 	if(storyUser == loggedUser){
 			return `<p uk-margin>
