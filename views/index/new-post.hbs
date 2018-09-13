@@ -29,6 +29,12 @@
 				</div>
 		</div>
 
+		<div class="uk-margin">
+				<label class="uk-form-label" for="form-stacked-text">Add an Image</label>
+				<div class="uk-form-controls add-image"></div>
+		</div>
+
+
 		<div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
 			<label><input class="uk-radio" type="radio" name="pAllowComments" value="true" checked> Allow comments</label>
 			<label><input class="uk-radio" type="radio" name="pAllowComments" value="false" > disable comments</label>
@@ -43,3 +49,20 @@
 	
 
 </form>
+
+
+		<div class="uk-margin">					
+				<button id="images" class="add-btn uk-button uk-button-secondary">Add Image</button>
+		</div>
+
+<script>
+const postAddBtn = document.querySelector(".add-btn")
+const imageList = document.querySelector(".add-image");
+
+postAddBtn.onclick = function () {
+  const newImageTag = document.createElement("div");
+	newImageTag.innerHTML = '<input name="pImagePortfolio" class="uk-input" id="form-stacked-text" type="text" placeholder="Your URL...">';
+  imageList.appendChild(newImageTag);
+}
+
+</script>
