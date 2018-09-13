@@ -1,20 +1,17 @@
 <div class="uk-container uk-container-small">
 {{!-- EXTERNAL WRAPPING DIV --}}
 
-{{#if userIsLogged}}
-user is logged
-{{else}}
-user is not logged
-{{/if}}
 
-{{#if userIsAdmin}}
-user is admin
-{{else}}
-user is not admin
-{{/if}}
 
-<article class="uk-article">
-{{!--MAIN IMAGE --}}
+
+
+
+
+{{!------------------------------------------------------------------}}
+{{!-- POST SECTION --}}
+{{!------------------------------------------------------------------}}
+{{!--MAIN IMAGE--}}
+<article class="uk-article uk-margin">
 	<h1 class="uk-article-title"><a class="uk-link-reset" href="">{{postItem.pTitle}}</a></h1>
 	<div class="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="{{postItem.pImage}}" uk-img>
 		<h2>Wonderful Post</h2>
@@ -41,61 +38,116 @@ user is not admin
 </div>
 </article>
 
+
+
+{{!------------------------------------------------------------------}}
+{{!-- BUTTONS DELETE / UPDATE POST --}}
+{{!------------------------------------------------------------------}}
+{{#if userIsAdmin}}
 <p uk-margin>
 	<a href="/posts/{{postItem._id}}/edit" class="uk-button uk-button-primary">Edit</a>
 	<a href="/posts/{{postItem._id}}/delete" class="uk-button uk-button-danger">Delete</a>
 </p>
+{{else}}
+{{/if}}
 
+
+
+{{!------------------------------------------------------------------}}
 {{!-- HOW MANY COMMENTS --}}
+{{!------------------------------------------------------------------}}
 <div class="uk-grid-small uk-child-width-auto uk-margin" uk-grid>
 	<div>
 		<a class="uk-button uk-button-text" href="#comments-container">{{postItem.pComments.length}} comments</a>
 	</div>
 </div>
 
-{{!-- {{#if postItem.pComments}} --}}
-<div class="uk-container uk-container-small uk-margin" id="comments-container">
-	<article class="uk-comment">
-	<header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
-		<div class="uk-width-auto">
-			<img class="uk-comment-avatar" 
-			{{!-- src="images/avatar.jpg"  --}}
-			width="80" height="80" alt="">
+
+
+{{!------------------------------------------------------------------}}
+{{!-- ADMIN/ NOT ADMIN --}}
+{{!------------------------------------------------------------------}}
+{{#if postItem.pComments}}
+		<div class="uk-container uk-container-small uk-margin" id="comments-container">
+		{{#each postItem.pComments}}
+			{{!-- {{#superif ../user._id this.cAuthor._id options}}
+				<p>je suis la</p>
+			{{else}}
+				<p>je suis pas la</p>
+			{{/superif}} --}}
+
+
+		<article class="uk-comment uk-comment-primary uk-margin">
+		<header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+				<div class="uk-width-auto">
+						<img class="uk-comment-avatar" src="{{ this.cAuthor.image }}" width="80" height="80" alt="">
+				</div>
+				<div class="uk-width-expand">
+						<h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">{{ this.cAuthor.firstName }} {{ this.cAuthor.lastName }}</a></h4>
+						<ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+								<li><a href="#">{{ this.cDate }}</a></li>
+						</ul>
+				</div>
+		</header>
+		<div class="uk-comment-body">
+				<p>{{this.cBody}}</p>
 		</div>
-		<div class="uk-width-expand">
-			<h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">Comment Author</a></h4>
-			<ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-					<li><a href="#">12 days ago</a></li>
-			</ul>
-		</div>
-	</header>
-	<div class="uk-comment-body">
-			<p>This is my comment.</p>
+		{{#if ../user}}
+			You are logged
+				{{{editIcon this.cAuthor.id ../user.id this._id }}}
+		{{else}}
+			<small>You are not logged</small>
+		{{/if}}
+		
+
+		
+		</article>
+
+		{{/each}}
 	</div>
-	</article>
-</div>
-{{!-- {{else}}
-{{/if}} --}}
+{{else}}
+No comments yet
+{{/if}}
 
-
-
-
-
-
-{{!-- COMMENTS SECTION --}}
-
-<form>
+{{#if userIsLogged}}
+user is logged
+{{!-- START OF ADD COMMENTS SECTION --}}
+<form action="{{postItem.id}}/process-comment" method="POST">
 	<fieldset class="uk-fieldset">
 			<legend class="uk-legend">Add A Comment</legend>
-			<div class="uk-margin">
-					<textarea class="uk-textarea" rows="5" placeholder="Write Your Comment Here..."></textarea>
+			<div class="uk-margin" >
+					<textarea  name="commentBody" class="uk-textarea" rows="5" placeholder="Write Your Comment Here..."></textarea>
 			</div>
-	</fieldset>
 	<p uk-margin>
-		<button class="uk-button uk-button-secondary">Secondary</button>
+		<button class="uk-button uk-button-secondary">Add Comment</button>
 	</p>
+	</fieldset>
 </form>
+{{!-- END OF COMMENTS SECTION --}}
+{{else}}
+{{/if}}
+
+{{!------------------------------------------------------------------}}
+{{!-- ADMIN/ NOT ADMIN AT THE BOTTOM OF THE PAGE--}}
+{{!------------------------------------------------------------------}}
+
+<div class="uk-comment-body uk-margin">
+	<p>
+		{{#if userIsLogged}}
+		<small> You are logged as {{user.firstName}} || </small>
+		{{else}}
+		<small> You are not logged || </small>
+		{{/if}}
+
+		{{#if userIsAdmin}}
+			<small>You are admin</small>
+		{{else}}
+			<small>You are not admin</small>
+		{{/if}}
+	</p>
+</div>
+
+
 
 {{!-- EXTERNAL WRAPPING DIV --}}
 </div>
-
