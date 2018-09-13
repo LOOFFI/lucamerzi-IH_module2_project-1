@@ -9,11 +9,7 @@ router.get("/", (req, res, next) => {
 	//Post.find()
 	Post.find()
 	.populate("pAuthor")
-<<<<<<< HEAD
 	.sort({createdAt: "desc" })
-=======
-	.sort({createdAt : "desc"})
->>>>>>> 7ecbbc58f33133919b21c83ea7c9727f80d2ecff
 	.then(documentsArray => {
 		res.locals.posts = documentsArray
 		res.render("index/posts.hbs")
