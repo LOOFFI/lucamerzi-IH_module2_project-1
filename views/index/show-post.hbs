@@ -11,10 +11,10 @@
 {{!-- POST SECTION --}}
 {{!------------------------------------------------------------------}}
 {{!--MAIN IMAGE--}}
-<article class="uk-article uk-margin">
+<article class="uk-article uk-margin uk-card uk-card-default uk-card-body">
 	<h1 class="uk-article-title"><a class="uk-link-reset" href="">{{postItem.pTitle}}</a></h1>
 	<div class="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="{{postItem.pImage}}" uk-img>
-		<h2>Wonderful Post</h2>
+		{{!-- <h2>Wonderful Post</h2> --}}
 	</div>
 	<p class="uk-article-meta">Written by <a href="#">{{postItem.pAuthor.firstName}} {{postItem.pAuthor.lastName}}</a> on {{postItem.createdAt}} <a href="#">Blog</a></p>
 	<p class="uk-text-lead">{{{postItem.pDescription}}}</p>
@@ -36,10 +36,6 @@
     <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
 
 </div>
-</article>
-
-
-
 {{!------------------------------------------------------------------}}
 {{!-- BUTTONS DELETE / UPDATE POST --}}
 {{!------------------------------------------------------------------}}
@@ -50,6 +46,10 @@
 </p>
 {{else}}
 {{/if}}
+</article>
+
+
+
 
 
 
@@ -92,11 +92,15 @@
 		<div class="uk-comment-body">
 				<p>{{this.cBody}}</p>
 		</div>
+
+
+
+{{!/////////////////////////////////////////////////////}}
+{{!-- CONDITIONALLY SHOW THE DELETE BUTTON FOR COMMENTS --}}
+{{!/////////////////////////////////////////////////////}}
 		{{#if ../user}}
-			You are logged
-				{{{editIcon this.cAuthor.id ../user.id this._id }}}
+			{{{editIcon this.cAuthor.id ../user.id this._id ../postItem.id }}}
 		{{else}}
-			<small>You are not logged</small>
 		{{/if}}
 		
 

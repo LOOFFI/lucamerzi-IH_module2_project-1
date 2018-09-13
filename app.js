@@ -47,11 +47,10 @@ app.set('view engine', "hbs");
 // 	}
 	 
 // })
-hbs.registerHelper("editIcon", function(storyUser, loggedUser, storyId){
+hbs.registerHelper("editIcon", function(storyUser, loggedUser, storyId, commentId){
 	if(storyUser == loggedUser){
 			return `<p uk-margin>
-			<a class="uk-button uk-button-primary" href="/posts/comment-edit/${storyId}" uk-icon="icon: file-edit"></a>
-			<a  class="uk-button uk-button-danger" href="/posts/comment-delete/${storyId}" uk-icon="icon: trash"></a>
+			<a class="uk-button uk-button-danger" href="/posts/comment-delete/${storyId}/${commentId}" uk-icon="icon: trash"></a>
 		</p>`;
 		} else {
 		return 'You cannot edit or remove this';

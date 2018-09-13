@@ -10,47 +10,63 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.14/css/uikit.min.css" />
 </head>
 <body>
-<nav class="uk-navbar-container uk-margin-left uk-margin-right uk-margin-bottom " uk-navbar >
-	<div class="uk-navbar-left">
-		<ul class="uk-navbar-nav">
-			<li><a href="/posts" uk-icon="icon: copy"></a></li>
-			{{#if user}}
-			<li><a  uk-icon="icon: plus" href="/posts/new"></a></li>
-			{{else}}
-			{{/if}}
-			<li><a  uk-icon="icon: github" href="#"></a></li>
-			<li><a  uk-icon="icon: linkedin" href="#"></a></li>
-			<li><a  uk-icon="icon: whatsapp" href="#"></a></li>
-			<li>
-				<a href="#">More...</a>
-				<div class="uk-navbar-dropdown">
-					<ul class="uk-nav uk-navbar-dropdown-nav">
-						<li><a href="/posts">About This Project</a></li>
-					</ul>
-				</div>
-			</li>
-		</ul>
-	</div>
-	<a class="uk-navbar-item uk-navbar-center uk-logo" href="/">
-		<span uk-icon="code" ></span>
-	</a>
-	<div class="uk-navbar-right">
-		{{#if user}}
-			<div class="uk-width-auto"><img class="uk-border-circle" width="40" height="40" src="{{user.image}}"></div>
-			<ul class="uk-navbar-nav">
-				<li> <a href=""> Hi, {{user.firstName}}</a></li>
+
+
+
+{{!////////////////////////////////////////////////////////////////}}
+{{!-- NAVBAR STARTS HERE --}}
+{{!////////////////////////////////////////////////////////////////}}
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
+		<nav class="uk-navbar-container" uk-navbar style="position: relative; z-index: 980;">
+			<!-- NAVBAR LEFT -->
+			<div class="uk-navbar-left">
+						<ul class="uk-navbar-nav">
+								<li>
+										<a href="#">More...</a>
+										<div class="uk-navbar-dropdown">
+												<ul class="uk-nav uk-navbar-dropdown-nav">
+														<li class="uk-active"><a href="#">Active</a></li>
+														<li><a href="#">Item</a></li>
+														<li><a href="#">Item</a></li>
+												</ul>
+										</div>
+								</li>
+								<li><a href="/posts" uk-icon="icon: copy"></a></li>
+								{{#if user}}
+								<li><a href="/posts/new" uk-icon="icon: plus"></a></li>
+								{{else}}
+								{{/if}}
+								<li><a href="https://github.com/LOOFFI" target="blank" uk-icon="icon: github"></a></li>
+								<li><a href="https://www.linkedin.com/in/aur%C3%A9lien-rosaz-14076716a/" target="blank" uk-icon="icon: linkedin"></a></li>
+								<li><a href="#" uk-icon="icon: whatsapp"></a></li>
+								<li><a href="#">Item</a></li>
+						</ul>
+
+			</div>
+			<!-- NAVBAR CENTER -->
+			<div class="uk-navbar-center">
+				<ul class="uk-navbar-nav">
+					<li><a class="uk-navbar-item" id="aurelien" href="#">Aurélien Rosaz || JS Fullstack Developer || Paris </a></li>
+				</ul>
+			</div>
+			<!-- NAVBAR RIGHT -->
+			<div class="uk-navbar-right">
+				{{#if user}}
+				<div class="uk-width-auto"><img class="uk-border-circle" width="40" height="40" src="{{user.image}}"></div>
+				<ul class="uk-navbar-nav">
+				<li> <a href=""> Hi, {{user.firstName}} </a></li>
 				<li><a href="/auth/logout">Logout</a></li>
-			</ul>
-		{{else}}
-			{{!-- <ul class="uk-navbar-nav">
-
-				<li> <a href="/auth/google">Log in</a></li>
-			</ul> --}}
+				</ul>
+				{{else}}
 				<a href="/auth/google" class="uk-icon-button uk-margin-small-right" uk-icon="google"></a>
+				{{/if}}
+			</div>
+		</nav>
+</div>
+{{!////////////////////////////////////////////////////////////////}}
+{{!-- NAVBAR ENDS HERE --}}
+{{!////////////////////////////////////////////////////////////////}}
 
-		{{/if}}
-	</div>
-</nav>
 
 
 <div class="uk-container uk-container-xsmall uk-margin">
@@ -70,10 +86,6 @@
 				.catch( error => {
 					console.error( error );
 				} );
-
-			
-		  </script>
-
-
+		</script>
 </body>
 </html>
