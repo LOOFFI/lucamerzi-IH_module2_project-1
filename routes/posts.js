@@ -97,11 +97,11 @@ router.get("/:id/edit", (req,res,next) => {
 // EDITING UPDATING
 router.post("/:id/process-edit", (req,res,next) => {
 	const {id} = req.params;
-	const { pTitle, pBody, pImage, pAllowComments, pIsPublished }= req.body;
+	const { pTitle, pDescription, pImagePortfolio , pBody, pImage, pAllowComments, pIsPublished }= req.body;
 
 	Post.findByIdAndUpdate(
 		id,
-		{$set: {pTitle, pBody, pImage, pAllowComments, pIsPublished} },
+		{$set: {pTitle, pDescription, pImagePortfolio , pBody, pImage, pAllowComments, pIsPublished} },
 		{ runValidators: true })
 		.then(postDoc => {
 			res.redirect(`/posts/${id}`);

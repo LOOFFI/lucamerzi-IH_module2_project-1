@@ -8,6 +8,13 @@
 		</div>
 
 		<div class="uk-margin">
+				<label class="uk-form-label" for="form-stacked-text">Description</label>
+				<div class="uk-form-controls">
+						<input name="pDescription" class="uk-input" id="form-stacked-text" type="text" placeholder="A short description (optional)...">
+				</div>
+		</div>
+
+		<div class="uk-margin">
 				<div class="uk-form-label">Post Body</div>
 				<div class="uk-form-controls">
 					<textarea name="pBody" id="editor" class="uk-textarea">{{postItem.pBody}}</textarea>
@@ -19,6 +26,19 @@
 				<div class="uk-form-controls">
 						<input name="pImage" value="{{postItem.pImage}}" class="uk-input" id="form-stacked-text" type="text" placeholder="Your URL...">
 				</div>
+		</div>
+
+		<div class="uk-margin rmv-img">
+{{#each postItem.pImagePortfolio}}
+			<div>
+				<a  class="uk-button uk-button-danger rmv-btn" uk-icon="icon: trash"></a>
+				<input name="pImagePortfolio" value="{{this}}" class="uk-input" id="form-stacked-text" type="text" placeholder="Your URL...">
+			</div>	
+{{/each}}
+		</div>
+
+		<div class="uk-margin">
+				<div class="uk-form-controls add-image"></div>
 		</div>
 
 		<div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
@@ -35,3 +55,29 @@
 	
 
 </form>
+
+<div class="uk-margin">					
+				<button id="images" class="add-btn uk-button uk-button-secondary">Add Image</button>
+		</div>
+
+<script>
+const postAddBtn = document.querySelector(".add-btn");
+const removeBtn = document.querySelectorAll(".rmv-btn");
+const imageList = document.querySelector(".add-image");
+
+postAddBtn.onclick = function () {
+  const newImageTag = document.createElement("div");
+	newImageTag.innerHTML = '<input name="pImagePortfolio" class="uk-input" id="form-stacked-text" type="text" placeholder="Your URL..."><br/>';
+  imageList.appendChild(newImageTag);
+};
+
+removeBtn.forEach(function (oneBtn) {
+oneBtn.onclick = function () {
+	let parentRmvImg = oneBtn.parentNode;
+	parentRmvImg.remove();
+}
+});
+
+</script>
+
+
