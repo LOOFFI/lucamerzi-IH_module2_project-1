@@ -5,6 +5,7 @@ const session = require("express-session")
 const passport = require("passport")
 const hbs = require("hbs")
 const bodyParser   = require('body-parser');
+const path = require("path")
 
 // LOAD MODELS
 require("./models/User.js")
@@ -32,11 +33,10 @@ mongoose.connect(keys.mongoURI)
 const app = express()
 
 // HBS MIDDLEWARE
-// hbs.registerPartials(path.join(__dirname, "views", "partials"));
-// app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', "hbs");
-// app.use(express.static(path.join(__dirname, 'public')));
-// app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+
+// SET STATIC FOLDER
+app.use(express.static(path.join(__dirname, "public")))
 
 // hbs.registerHelper("superif", function(a, b, options){
 //  if (a.toString() === b.toString()) {
@@ -56,8 +56,6 @@ hbs.registerHelper("editIcon", function(storyUser, loggedUser, storyId, commentI
 		return 'You cannot edit or remove this';
 	}
 })
-
-
 
 // MIDDLEWARE BODY PARSER
 app.use(bodyParser.json());
