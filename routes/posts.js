@@ -145,4 +145,17 @@ router.post("/:postId/process-comment", (req, res, next) => {
 	.catch(err => console.log(err))
 })
 
+///////////////////////////////////////////////////
+// DELETE COMMENT ROUTE
+///////////////////////////////////////////////////
+
+router.get("/comment-delete/:commentId", (req, res, next) => {
+	res.send(req.params.commentId)
+
+
+})
+
+
+
+
 module.exports = router;
