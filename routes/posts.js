@@ -149,10 +149,12 @@ router.post("/:postId/process-comment", (req, res, next) => {
 // DELETE COMMENT ROUTE
 ///////////////////////////////////////////////////
 
-router.get("/comment-delete/:commentId", (req, res, next) => {
-	res.send(req.params.commentId)
-
-
+router.get("/comment-delete/:storyId/:commentId", (req, res, next) => {
+	res.send(req.params)
+	// const {storyId, commentId} = req.params
+	// Story.findByIdAndUpdate(storyId)
+	// .then()
+	// .catch()
 })
 
 

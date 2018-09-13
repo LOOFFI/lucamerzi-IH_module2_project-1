@@ -99,7 +99,7 @@
 {{!-- CONDITIONALLY SHOW THE DELETE BUTTON FOR COMMENTS --}}
 {{!/////////////////////////////////////////////////////}}
 		{{#if ../user}}
-			{{{editIcon this.cAuthor.id ../user.id this._id }}}
+			{{{editIcon this.cAuthor.id ../user.id this._id ../postItem.id }}}
 		{{else}}
 		{{/if}}
 		
