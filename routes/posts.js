@@ -9,7 +9,11 @@ router.get("/", (req, res, next) => {
 	//Post.find()
 	Post.find()
 	.populate("pAuthor")
+<<<<<<< HEAD
 	.sort({createdAt: "desc" })
+=======
+	.sort({createdAt : "desc"})
+>>>>>>> 7ecbbc58f33133919b21c83ea7c9727f80d2ecff
 	.then(documentsArray => {
 		res.locals.posts = documentsArray
 		res.render("index/posts.hbs")
@@ -31,10 +35,10 @@ router.get("/new", (req, res, next) => {
 // PROCESS NEW POST
 router.post("/new", (req, res, next) => {
 	// DESTRUCTURE REQUEST
-	const { pTitle, pDescription ,pBody, pImage, pAllowComments, pIsPublished } = req.body
+	const { pTitle, pDescription ,pBody, pImage, pImagePortfolio, pAllowComments, pIsPublished } = req.body
 	const pAuthor = req.user;
 
-	Post.create({pTitle, pDescription, pBody, pImage, pAllowComments, pIsPublished, pAuthor })
+	Post.create({pTitle, pDescription, pBody, pImage, pImagePortfolio, pAllowComments, pIsPublished, pAuthor })
 	.then(newDoc => {
 		res.redirect("/posts")
 	})
