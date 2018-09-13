@@ -120,7 +120,7 @@ router.get("/:id/delete", (req,res,next) => {
 // PROCESS COMMENT
 router.post("/:postId/process-comment", (req, res, next) => {
 	
-	console.log(req.user)
+	// console.log(req.user)
 
 
 	// COMMENT OBJECT FIELDS
@@ -137,7 +137,7 @@ router.post("/:postId/process-comment", (req, res, next) => {
 		foundDoc.pComments.unshift(comment)
 		foundDoc.save()
 			.then(foundDocWithComment => {
-				console.log(foundDocWithComment.pComments)
+				// console.log(foundDocWithComment.pComments)
 				res.redirect(`/posts/${postId}`)
 			})
 			.catch(err => console.log(err))
@@ -149,13 +149,22 @@ router.post("/:postId/process-comment", (req, res, next) => {
 // DELETE COMMENT ROUTE
 ///////////////////////////////////////////////////
 
-router.get("/comment-delete/:storyId/:commentId", (req, res, next) => {
-	res.send(req.params)
-	// const {storyId, commentId} = req.params
-	// Story.findByIdAndUpdate(storyId)
-	// .then()
-	// .catch()
-})
+router.get("/comment-delete/:commentId/:postId", (req, res, next) => {
+	// res.send(req.params)
+	const {postId, commentId} = req.params;
+
+	Post.findByIdAndUpdate(
+		postId, 
+		{$pull: {pComments :{ $eq: { commentId } }}}
+		)
+		.then(post => {
+			console.log(commentId + " deleted!!!")
+			res.redirect(`/posts/${postId}`)
+		})
+		.catch(err=> console.log(err))
+
+
+	})
 
 
 

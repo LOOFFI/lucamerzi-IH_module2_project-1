@@ -4,7 +4,7 @@ const router = express.Router()
 
 // WELCOME PAGE (NOT LOGGED)
 router.get("/", (req, res, next) => {
-   res.render("index/welcome.hbs")
+   res.redirect("/posts")
 })
 
 // ABOUT ME PAGE
@@ -12,11 +12,11 @@ router.get("/aboutme", (req, res, next) => {
   res.render("index/about-page.hbs")
 })
 
-// DASHBOARD (ADMIN)
-router.get("/dashboard", (req, res, next) => {
-  //res.send("It works")
-  res.render("index/dashboard.hbs")
-})
+// // DASHBOARD (ADMIN)
+// router.get("/dashboard", (req, res, next) => {
+//   //res.send("It works")
+//   res.render("index/dashboard.hbs")
+// })
 
 
 
