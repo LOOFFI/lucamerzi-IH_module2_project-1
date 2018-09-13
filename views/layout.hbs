@@ -14,7 +14,10 @@
 	<div class="uk-navbar-left">
 		<ul class="uk-navbar-nav">
 			<li><a href="/posts" uk-icon="icon: copy"></a></li>
+			{{#if user}}
 			<li><a  uk-icon="icon: plus" href="/posts/new"></a></li>
+			{{else}}
+			{{/if}}
 			<li><a  uk-icon="icon: github" href="#"></a></li>
 			<li><a  uk-icon="icon: linkedin" href="#"></a></li>
 			<li><a  uk-icon="icon: whatsapp" href="#"></a></li>
@@ -28,7 +31,9 @@
 			</li>
 		</ul>
 	</div>
-	<a class="uk-navbar-item uk-navbar-center uk-logo" href="/"><span uk-icon="code" ></span></a>
+	<a class="uk-navbar-item uk-navbar-center uk-logo" href="/">
+		<span uk-icon="code" ></span>
+	</a>
 	<div class="uk-navbar-right">
 		{{#if user}}
 			<div class="uk-width-auto"><img class="uk-border-circle" width="40" height="40" src="{{user.image}}"></div>

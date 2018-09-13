@@ -9,12 +9,8 @@ router.get("/", (req, res, next) => {
 	//Post.find()
 	Post.find()
 	.populate("pAuthor")
-	.sort({createdAt : "desc"})
+	.sort({createdAt: "desc" })
 	.then(documentsArray => {
-		// documentsArray.map(el => {
-		// 	console.log(el.pBody)
-		// })
-		//console.log(documentsArray)
 		res.locals.posts = documentsArray
 		res.render("index/posts.hbs")
 	})
