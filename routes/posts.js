@@ -8,8 +8,8 @@ router.get("/", (req, res, next) => {
 	
 	//Post.find()
 	Post.find()
-	//.sort(['createdAt', 1])
 	.populate("pAuthor")
+	.sort({createdAt : "desc"})
 	.then(documentsArray => {
 		// documentsArray.map(el => {
 		// 	console.log(el.pBody)
