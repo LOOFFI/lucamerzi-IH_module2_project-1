@@ -1,3 +1,13 @@
-.body{
-  background-color: red
+@media only screen and (max-width: 1200px) {
+	#aurelien-rosaz {
+		/* background-color: lightblue; */
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 800px) {
+	.uk-navbar-left, .uk-navbar-left {
+		/* background-color: lightblue; */
+		display: none;
+	}
 }
