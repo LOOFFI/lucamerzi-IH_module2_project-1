@@ -32,7 +32,8 @@
 {{#each postItem.pImagePortfolio}}
 			<div>
 				<input name="pImagePortfolio" value="{{this}}" class="uk-input" id="form-stacked-text" type="text" placeholder="Your URL...">
-				<a  class="uk-button uk-button-text rmv-btn" uk-icon="icon: trash"></a>
+				<a  class="uk-button uk-button-text uk-align-center rmv-btn" uk-icon="icon: trash"></a>
+				<hr>
 			</div>	
 {{/each}}
 		</div>
@@ -67,7 +68,7 @@ const imageList = document.querySelector(".add-image");
 
 postAddBtn.onclick = function () {
   const newImageTag = document.createElement("div");
-	newImageTag.innerHTML = '<input name="pImagePortfolio" class="uk-input" id="form-stacked-text" type="text" placeholder="Your URL..."><br/>';
+	newImageTag.innerHTML = '<input name="pImagePortfolio" class="uk-input" id="form-stacked-text" type="text" placeholder="Your URL..."><br/><hr>';
   imageList.appendChild(newImageTag);
 };
 
