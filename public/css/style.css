@@ -11,3 +11,12 @@
 		display: none;
 	}
 }
+
+.uk-grid-carrousel {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+	padding: 5px;
+	list-style: none;
+	align-items: center;
+}

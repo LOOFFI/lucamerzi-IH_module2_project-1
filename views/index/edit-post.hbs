@@ -1,4 +1,4 @@
-<form class="uk-form-stacked" action="/posts/{{postItem._id}}/process-edit" method="POST">
+<form class="uk-form-stacked" action="/posts/{{postItem._id}}/process-edit" method="POST" id="nameform">
 
 		<div class="uk-margin">
 				<label class="uk-form-label" for="form-stacked-text">Title</label>
@@ -28,11 +28,12 @@
 				</div>
 		</div>
 
-		<div class="uk-margin rmv-img">
+		<div class="uk-margin">
 {{#each postItem.pImagePortfolio}}
 			<div>
-				<a  class="uk-button uk-button-danger rmv-btn" uk-icon="icon: trash"></a>
 				<input name="pImagePortfolio" value="{{this}}" class="uk-input" id="form-stacked-text" type="text" placeholder="Your URL...">
+				<a  class="uk-button uk-button-text uk-align-center rmv-btn" uk-icon="icon: trash"></a>
+				<hr>
 			</div>	
 {{/each}}
 		</div>
@@ -51,13 +52,13 @@
 			<label><input class="uk-radio" type="radio" name="pIsPublished" value="false">Unpublished</label>
 		</div>
 
-<button type="submit" href="" class="uk-button uk-button-primary"></a> Submit </button>
 	
 
 </form>
 
 <div class="uk-margin">					
-		<button id="images" class="add-btn uk-button uk-button-secondary">Add Image</button>
+		<button type="submit" form="nameform" class="uk-button uk-button-primary"></a> Submit </button>
+		<button id="images" class="add-btn uk-button uk-button-text">Add Image</button>
 </div>
 
 <script>
@@ -67,7 +68,7 @@ const imageList = document.querySelector(".add-image");
 
 postAddBtn.onclick = function () {
   const newImageTag = document.createElement("div");
-	newImageTag.innerHTML = '<input name="pImagePortfolio" class="uk-input" id="form-stacked-text" type="text" placeholder="Your URL..."><br/>';
+	newImageTag.innerHTML = '<input name="pImagePortfolio" class="uk-input" id="form-stacked-text" type="text" placeholder="Your URL..."><br/><hr>';
   imageList.appendChild(newImageTag);
 };
 
