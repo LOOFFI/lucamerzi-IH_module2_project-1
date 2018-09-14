@@ -45,15 +45,15 @@ app.use(express.static(path.join(__dirname, "public")))
 //  else {
 // 	 options.inverse(this)
 // 	}
-	 
 // })
+
 hbs.registerHelper("editIcon", function(storyUser, loggedUser, storyId, commentId){
 	if(storyUser == loggedUser){
 			return `<p uk-margin>
 			<a class="uk-button uk-button-danger" href="/posts/comment-delete/${storyId}/${commentId}" uk-icon="icon: trash"></a>
 		</p>`;
 		} else {
-		return 'You cannot edit or remove this';
+		return '';
 	}
 })
 

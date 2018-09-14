@@ -1,12 +1,14 @@
 const express = require("express");
 const Post = require("../models/Post.js");
 const router = express.Router();
+const { ensureAuthenticated, ensureAdmin } = require("../helpers/auth.js")
 
+//////////////////////////////////////////////////////
+// PUBLIC ROUTES
+//////////////////////////////////////////////////////
 
-// POSTS
+// SHOW ALL POSTS
 router.get("/", (req, res, next) => {
-	
-	//Post.find()
 	Post.find()
 	.populate("pAuthor")
 	.sort({createdAt: "desc" })
@@ -15,31 +17,6 @@ router.get("/", (req, res, next) => {
 		res.render("index/posts.hbs")
 	})
 	.catch(err => console.log(err))
-	
-})
-
-
-// SHOW NEW POST FORM
-router.get("/new", (req, res, next) => {
-	if (req.user){
-		req.user.isAdmin ? res.render("index/new-post.hbs") : res.redirect("/")
-	} else {
-		res.redirect("/")
-	}
-})
-
-// PROCESS NEW POST
-router.post("/new", (req, res, next) => {
-	// DESTRUCTURE REQUEST
-	const { pTitle, pDescription ,pBody, pImage, pImagePortfolio, pAllowComments, pIsPublished } = req.body
-	const pAuthor = req.user;
-
-	Post.create({pTitle, pDescription, pBody, pImage, pImagePortfolio, pAllowComments, pIsPublished, pAuthor })
-	.then(newDoc => {
-		res.redirect("/posts")
-	})
-	.catch(err => console.log(err))
-	
 })
 
 // SHOW ONE POST
@@ -72,14 +49,37 @@ router.get("/:id", (req,res,next) => {
 			if (req.user){
 				res.locals.user = req.user;
 			}
-			
 			res.render("index/show-post.hbs");
 		})
 		.catch(err => next(err));
 })
 
+
+
+
+//////////////////////////////////////////////////////
+// ADMIN ROUTES
+//////////////////////////////////////////////////////
+
+// SHOW NEW POST FORM
+router.get("/new", ensureAdmin, (req, res, next) => {
+	res.render("index/new-post.hbs")
+})
+
+// PROCESS NEW POST
+router.post("/new", ensureAdmin, (req, res, next) => {
+	// DESTRUCTURE REQUEST
+	const { pTitle, pDescription ,pBody, pImage, pImagePortfolio, pAllowComments, pIsPublished } = req.body
+	const pAuthor = req.user;
+	Post.create({pTitle, pDescription, pBody, pImage, pImagePortfolio, pAllowComments, pIsPublished, pAuthor })
+	.then(newDoc => {
+		res.redirect("/posts")
+	})
+	.catch(err => console.log(err))
+})
+
 // EDIT ONE POST
-router.get("/:id/edit", (req,res,next) => {
+router.get("/:id/edit", ensureAdmin, (req,res,next) => {
 	const {id} = req.params;
 	Post.findById(id)
 		.populate("pAuthor")
@@ -91,10 +91,9 @@ router.get("/:id/edit", (req,res,next) => {
 })
 
 // EDITING UPDATING
-router.post("/:id/process-edit", (req,res,next) => {
+router.post("/:id/process-edit", ensureAdmin, (req,res,next) => {
 	const {id} = req.params;
 	const { pTitle, pDescription, pImagePortfolio , pBody, pImage, pAllowComments, pIsPublished }= req.body;
-
 	Post.findByIdAndUpdate(
 		id,
 		{$set: {pTitle, pDescription, pImagePortfolio , pBody, pImage, pAllowComments, pIsPublished} },
@@ -103,14 +102,12 @@ router.post("/:id/process-edit", (req,res,next) => {
 			res.redirect(`/posts/${id}`);
 		})
 		.catch(err => next(err));
- 
 });
 
 
 // DELETING
-router.get("/:id/delete", (req,res,next) => {
+router.get("/:id/delete", ensureAdmin, (req,res,next) => {
 	const { id } = req.params;
-
 	Post.findByIdAndRemove(id)
 		.then(postDoc => {
 			res.redirect("/posts");
@@ -118,21 +115,17 @@ router.get("/:id/delete", (req,res,next) => {
 		.catch(err => next(err));
 });
 
-// PROCESS COMMENT
-router.post("/:postId/process-comment", (req, res, next) => {
-	
-	// console.log(req.user)
-
-
+//////////////////////////////////////////////////////
+// PROCESS NEW COMMENT
+//////////////////////////////////////////////////////
+router.post("/:postId/process-comment", ensureAuthenticated, (req, res, next) => {
 	// COMMENT OBJECT FIELDS
 	const comment = {
 		cAuthor : req.user,
 		cBody : req.body.commentBody,
 	}
-
 	// POST ID
 	const {postId} = req.params
-	
 	Post.findById( {_id: postId} )
 	.then(foundDoc => {
 		foundDoc.pComments.unshift(comment)
@@ -149,24 +142,18 @@ router.post("/:postId/process-comment", (req, res, next) => {
 ///////////////////////////////////////////////////
 // DELETE COMMENT ROUTE
 ///////////////////////////////////////////////////
-
-router.get("/comment-delete/:commentId/:postId", (req, res, next) => {
-	// res.send(req.params)
+router.get("/comment-delete/:commentId/:postId", ensureAuthenticated, (req, res, next) => {
 	const {postId, commentId} = req.params;
-
 	Post.findByIdAndUpdate(
-		postId, 
-		{$pull: {pComments :{ $eq: { commentId } }}}
+			postId, 
+			{$pull: {pComments :{ $eq: { commentId } }}}
 		)
 		.then(post => {
 			console.log(commentId + " deleted!!!")
 			res.redirect(`/posts/${postId}`)
 		})
 		.catch(err=> console.log(err))
-
-
 	})
-
 
 
 
