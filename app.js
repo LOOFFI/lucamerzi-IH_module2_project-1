@@ -53,7 +53,7 @@ hbs.registerHelper("editIcon", function(storyUser, loggedUser, storyId, commentI
 			<a class="uk-button uk-button-danger" href="/posts/comment-delete/${storyId}/${commentId}" uk-icon="icon: trash"></a>
 		</p>`;
 		} else {
-		return 'You cannot edit or remove this';
+		return '';
 	}
 })
 
