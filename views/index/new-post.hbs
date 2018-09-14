@@ -29,7 +29,7 @@
 				</div>
 		</div>
 
-		<div class="uk-margin uk-text-center" uk-grid>
+		<div class="uk-margin">
 				<label class="uk-form-label" for="form-stacked-text">Add an Image</label>
 				<div class="uk-form-controls add-image"></div>
 				<hr>
@@ -53,7 +53,7 @@
 
 		<div class="uk-margin">					
 				<button type="submit" form="formName" class="uk-button uk-button-primary"></a> Submit </button>
-				<button id="images" class="add-btn uk-button uk-button-secondary">Add Image</button>
+				<button id="images" class="add-btn uk-button uk-button-text">Add Image</button>
 		</div>
 
 <script>
@@ -62,7 +62,7 @@ const imageList = document.querySelector(".add-image");
 
 postAddBtn.onclick = function () {
   const newImageTag = document.createElement("div");
-	newImageTag.innerHTML = '<hr><input name="pImagePortfolio" class="uk-input" id="form-stacked-text" type="text" placeholder="Your URL...">';
+	newImageTag.innerHTML = '<input name="pImagePortfolio" class="uk-input" id="form-stacked-text" type="text" placeholder="Your URL..."><a  class="uk-button uk-button-text uk-align-center rmv-btn" uk-icon="icon: trash"></a><hr>';
   imageList.appendChild(newImageTag);
 }
 
