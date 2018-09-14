@@ -19,6 +19,11 @@ router.get("/", (req, res, next) => {
 	.catch(err => console.log(err))
 })
 
+// SHOW NEW POST FORM
+router.get("/new", ensureAdmin, (req, res, next) => {
+	res.render("index/new-post.hbs")
+})
+
 // SHOW ONE POST
 router.get("/:id", (req,res,next) => {
 	// IS ADMIN/ LOGGED
@@ -61,10 +66,7 @@ router.get("/:id", (req,res,next) => {
 // ADMIN ROUTES
 //////////////////////////////////////////////////////
 
-// SHOW NEW POST FORM
-router.get("/new", ensureAdmin, (req, res, next) => {
-	res.render("index/new-post.hbs")
-})
+
 
 // PROCESS NEW POST
 router.post("/new", ensureAdmin, (req, res, next) => {
