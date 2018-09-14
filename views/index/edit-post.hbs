@@ -56,21 +56,25 @@
 
 </form>
 
+
 <div class="uk-margin">					
 		<button type="submit" form="nameform" class="uk-button uk-button-primary"></a> Submit </button>
-		<button id="images" class="add-btn uk-button uk-button-text">Add Image</button>
+		<button type="submit" id="images" class="add-btn uk-button uk-button-text">Add Image</button>
 </div>
+
 
 <script>
 const postAddBtn = document.querySelector(".add-btn");
 const removeBtn = document.querySelectorAll(".rmv-btn");
 const imageList = document.querySelector(".add-image");
 
+
 postAddBtn.onclick = function () {
   const newImageTag = document.createElement("div");
 	newImageTag.innerHTML = '<input name="pImagePortfolio" class="uk-input" id="form-stacked-text" type="text" placeholder="Your URL..."><a  class="uk-button uk-button-text uk-align-center rmv-btn" uk-icon="icon: trash"></a><hr>';
   imageList.appendChild(newImageTag);
 };
+
 
 removeBtn.forEach(function (oneBtn) {
 oneBtn.onclick = function () {
