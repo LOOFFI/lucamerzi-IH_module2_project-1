@@ -22,13 +22,24 @@ const posts = require("./routes/posts.js")
 // LOAD KEYS
 const keys = require("./config/keys.js")
 
-// MAP GLOBAL PROMISES
-mongoose.Promise = global.Promise
-// MONGOOSE CONNECT
-mongoose.connect(keys.mongoURI)
-	.then( () => console.log("MongoDB connected") )
-	.catch(err => console.log(err))
 
+//////////// WHEN APP DEPLOYED ON HEROKU - MLAB MONGODB ///////////// 
+// MAP GLOBAL PROMISES
+//					 mongoose.Promise = global.Promise
+// MONGOOSE CONNECT
+// 					 mongoose.connect(keys.mongoURI,{useNewUrlParser: true})
+//					 	.then( () => console.log("MongoDB connected") )
+//					 	.catch(err => console.log(err))
+// mongoose.Promise and .connect à decommenter quand on déploie sur Heroku 
+
+mongoose
+	.connect('mongodb://localhost/project2', {useNewUrlParser: true})
+	.then(x => {
+    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+  })
+  .catch(err => {
+    console.error('Error connecting to mongo', err)
+  });
 
 const app = express()
 
@@ -63,6 +74,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // MIDDLEWARE COOKIE PARSER
 app.use(cookieParser())
+
+
+
 app.use(session({
 	secret: "secret",
 	resave: false,
@@ -84,8 +98,9 @@ app.use("/", index)
 app.use("/auth", auth)
 app.use("/posts", posts)
 
-const port = process.env.PORT || 3000;
+
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
-	console.log(`Seervers started on ${port}`)
+	console.log(`Servers started on ${port}`)
 });

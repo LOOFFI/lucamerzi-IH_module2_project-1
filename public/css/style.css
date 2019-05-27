@@ -8,7 +8,7 @@
 @media only screen and (max-width: 800px) {
 	.uk-navbar-left, .uk-navbar-left {
 		/* background-color: lightblue; */
-		display: none;
+		display: block;
 	}
 }
 
@@ -20,3 +20,5 @@
 	list-style: none;
 	align-items: center;
 }
+
+

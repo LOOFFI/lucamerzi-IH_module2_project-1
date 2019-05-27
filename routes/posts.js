@@ -19,10 +19,15 @@ router.get("/", (req, res, next) => {
 	.populate("pAuthor")
 	.sort({createdAt: "desc" })
 	.then(documentsArray => {
-		res.locals.posts = documentsArray
+		res.locals.posts = documentsArray;
 		res.render("index/posts.hbs")
 	})
 	.catch(err => console.log(err))
+})
+
+// SHOW NEW POST FORM
+router.get("/new", ensureAdmin, (req, res, next) => {
+	res.render("index/new-post.hbs")
 })
 
 // SHOW ONE POST
@@ -41,16 +46,6 @@ router.get("/:id", (req,res,next) => {
 		.populate("pAuthor")
 		.populate("pComments.cAuthor")
 		.then(postDoc => {
-			//res.send(postDoc)
-			// res.locals.isCommentAuthor = req.user._id === 
-			// postDoc.pComments.forEach((el, i) => {
-			// 	// res.locals.isCommentAuthor = (el.cAuthor._id.toString() === req.user._id.toString())
-			// 	// console.log(el.cAuthor._id.toString() === req.user._id.toString())
-			// 	// console.log(i)
-			// 	el.isCommentAuthor = (el.cAuthor._id.toString() === req.user._id.toString())
-			// 	console.log(req.user)
-			// })
-			// res.send(postDoc.pComments)
 			res.locals.postItem = postDoc;
 			if (req.user){
 				res.locals.user = req.user;
