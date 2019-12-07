@@ -59,7 +59,8 @@
 				<div class="uk-width-auto"></div>
 				<ul class="uk-navbar-nav">
 					<li><a href="#" ><img class="uk-border-circle" width="35" height="35" src="{{user.image}}"></a></li>
-					<li><a href="/auth/logout"> Hi, {{user.firstName}}...Logout</a></li>
+					<li><a> Hi, {{user.firstName}}</a></li>
+					<li><a href="/auth/logout">Logout</a></li>
 				</ul>
 				{{else}}
 				<a href="/auth/google" class="uk-icon-button uk-margin-small-right" uk-icon="google"></a>

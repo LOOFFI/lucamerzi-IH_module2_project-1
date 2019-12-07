@@ -1,3 +1,26 @@
+body {
+	background-color: rgb(227, 224, 241)
+}
+
+
+.uk-grid-carrousel {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+	margin: 0;
+	padding: 5px;
+	list-style: none;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
+
+.center {
+	text-align: center;
+}
+
 @media only screen and (max-width: 1200px) {
 	#aurelien-rosaz {
 		/* background-color: lightblue; */
@@ -11,14 +34,3 @@
 		display: block;
 	}
 }
-
-.uk-grid-carrousel {
-	display: flex;
-	flex-wrap: wrap;
-	margin: 0;
-	padding: 5px;
-	list-style: none;
-	align-items: center;
-}
-
-
