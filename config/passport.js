@@ -1,8 +1,9 @@
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const mongoose = require("mongoose")
-const keys = require("./keys.js")
-// LOAD USER MODEL
-const User = mongoose.model("User")
+const passportGoogle = require('passport-google-oauth');
+const mongoose = require("mongoose");
+const keys = require("./keys.js");
+const User = mongoose.model("User");
+const GoogleStrategy = passportGoogle.OAuth2Strategy;
+
 
 
 module.exports = function(passport){
@@ -13,13 +14,7 @@ module.exports = function(passport){
 			callbackURL: "/auth/google/callback",
 			proxy: true,
 		}, (accessToken, refreshToken, profile, done) => {
-			//console.log(accessToken)
-			console.log(profile)
-
-			const image = profile.photos[0].value//.substring(0, profile.photos[0].value.indexOf("?"))
-			
-			console.log(image)
-
+			const image = profile.photos[0].value
 			const newUser = {
 				googleID: profile.id,
 				firstName: profile.name.givenName,
@@ -28,14 +23,14 @@ module.exports = function(passport){
 				image: image
 			}
 
-			// CHECK FOR EXISTING USER
+		
 			User.findOne({ googleID: profile.id })
 			.then(user => {
 				if (user) {
-				  // Return user if existent
+				  
 					done(null, user);
 				} else {
-					// Create user
+					
 					new User(newUser)
 					.save()
 					.then(user => done(null, user))
